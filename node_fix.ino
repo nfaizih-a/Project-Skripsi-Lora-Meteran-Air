@@ -1,14 +1,15 @@
 #include <SPI.h>
 #include <LoRa.h>
+#include <LowPower.h> 
 
 // Pin untuk Sensor Hall
-const int hall1Pin = 6;  // Sensor Hall 1 terhubung ke pin D6
-const int hall2Pin = 7;  // Sensor Hall 2 terhubung ke pin D7
+const int hall1Pin = 3; 
+const int hall2Pin = 7;  
 
 // Struktur untuk data yang akan dikirim
 struct PutaranData {
-  char rumah[10];   // Nama rumah, misalnya "A_1"
-  int putaran;      // Jumlah putaran
+  char rumah[10];   
+  int putaran;      
 };
 
 // Buffer untuk mengirim data
@@ -19,11 +20,14 @@ int pulseCount = 1;
 
 void setup() {
   Serial.begin(115200);
+
   pinMode(hall1Pin, INPUT);
   pinMode(hall2Pin, INPUT);
 
-  // Setup interrupt untuk Hall 1 (menggunakan perubahan status dari HIGH ke LOW)
-  //attachInterrupt(digitalPinToInterrupt(hall1Pin), hall1Interrupt, FALLING);  // Deteksi sinyal perubahan dari HIGH ke LOW
+  pinMode(13, OUTPUT);  
+  digitalWrite(13, LOW);
+
+  attachInterrupt(digitalPinToInterrupt(hall1Pin), hall1Interrupt, FALLING); 
 
   // Setup LoRa
   if (!LoRa.begin(433E6)) {
@@ -31,10 +35,12 @@ void setup() {
     while (1);
   }
   Serial.println("LoRa Initialized");
+
+  //LoRa.idle();  
 }
 
 void loop() {
-  int hall1Value = digitalRead(hall1Pin);  // Membaca nilai dari Sensor Hall 1
+  int hall1Value = digitalRead(hall1Pin);  
   if (hall1Value == 0) {
     Serial.println(" Hall 1: " + hall1Value);
     int on = 0;
@@ -42,17 +48,21 @@ void loop() {
     int hall2Value = digitalRead(hall2Pin);
     Serial.println(" Hall 2: " + hall2Value);
       if(hall2Value == 0){
+      int pulseCount = 1;
       pulseCount++;  
       delay(2000);
       data.putaran = pulseCount;
-      strcpy(data.rumah, "A_1");  
+      strcpy(data.rumah, "A_2");  
       sendData(data);  
       on = 1;
       }
     } 
+    //LowPower.powerStandby(SLEEP_8S, ADC_ON, BOD_ON);
+    //LowPower.powerSave(SLEEP_8S, ADC_ON, BOD_ON, TIMER2_ON);
+    //LowPower.powerDown(SLEEP_FOREVER, ADC_ON, BOD_ON);
+    
   }
 }
-
 void hall1Interrupt() {
   isHall1Triggered = true;
 }
@@ -63,14 +73,16 @@ void sendData(PutaranData &data) {
   byte dataBuffer[sizeof(PutaranData)];
   memcpy(dataBuffer, &data, sizeof(PutaranData));  // Menyalin data ke buffer
 
-  // Kirim data menggunakan LoRa
+  
   LoRa.beginPacket();
   LoRa.write(dataBuffer, sizeof(PutaranData));  // Kirim byte array
   LoRa.endPacket();
 
-  // Debug: Menampilkan data yang dikirim
+  
   Serial.print("Data dikirim: Rumah: ");
   Serial.print(data.rumah);
   Serial.print(", Putaran: ");
   Serial.println(data.putaran);
+
+  LoRa.sleep();
 }
