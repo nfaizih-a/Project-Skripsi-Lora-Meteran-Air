@@ -30,10 +30,10 @@ struct PutaranData {
 String getMonthYear() {
   struct tm timeinfo;
   if (!getLocalTime(&timeinfo)) {
-    return "00_00";
+    return "00-00";
   }
   char buf[6];
-  snprintf(buf, sizeof(buf), "%02d_%02d", timeinfo.tm_mon + 1, (timeinfo.tm_year + 1900) % 100);
+  snprintf(buf, sizeof(buf), "%02d-%02d", timeinfo.tm_mon + 1, (timeinfo.tm_year + 1900) % 100);
   return String(buf);
 }
 
@@ -223,5 +223,3 @@ void updateFirestoreTodayValue(String rumah, String monthYear, int hari, int new
   }
   http.end();
 }
-
-
