@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/penggunaan_air"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/poppins"
+        android:text="Total Penggunaan Air : "
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/garis_v2" />
+
+    <LinearLayout
+        android:id="@+id/kotak_nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/garis_visualisasi">
+
+        <TextView
+            android:id="@+id/nama_perum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="cek" />
+
+        <TextView
+            android:id="@+id/blok_perum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bulan_pilih"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/poppins"
+        android:text="Pilih Bulan"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinner_bulan" />
+
+    <TextView
+        android:id="@+id/tagihan_air"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins"
+        android:text="Estimasi Tagihan Air : "
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/penggunaan_air" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_bulan">
+
+    </com.github.mikephil.charting.charts.BarChart>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Konsumsi Air"
+        android:textColor="#063C7B"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/garis_visualisasi"
+        android:layout_width="300dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="8dp"
+        android:background="#464646"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/garis_v2"
+        android:layout_width="300dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="28dp"
+        android:background="#464646"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barChart">
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinner_bulan"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins"
+        app:layout_constraintStart_toEndOf="@+id/bulan_pilih"
+        app:layout_constraintTop_toBottomOf="@+id/kotak_nama" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="36dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_more" />
+
+    <TextView
+        android:id="@+id/sumbuY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="300dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:rotation="-90"
+        android:text="Penggunaan Air (m³)"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/barChart"
+        app:layout_constraintEnd_toEndOf="@+id/barChart"
+        app:layout_constraintTop_toTopOf="@+id/barChart"
+        app:layout_constraintVertical_bias="0.49" />
+
+    <TextView
+        android:id="@+id/sumbuX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:background="@color/white"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="Tanggal"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/barChart"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="@+id/barChart"
+        app:layout_constraintTop_toBottomOf="@+id/barChart" />
+</androidx.constraintlayout.widget.ConstraintLayout>
